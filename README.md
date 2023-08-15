@@ -26,3 +26,13 @@ Image Labeling: Run start_app_sort.py
 Training: Run train_pytorch_lightning_model.py
 
 PreTraining: Run pretrain/pretrain_with_dino_paper_resnet_dino450.py
+
+# Software used
+Training and Validation was performed on an Nvidia A$100$ (Nvidia Corp., Santa Clara, CA, USA) and on Apple M1 MAX with 32 GB (Apple, USA), depending on the computational power needed, for example self-supervised pre-training was performed on a Hyper performing cluster with Nvidia A$100$. <br>
+On the Macbook Pro (Apple, USA) we used:<br>
+Python VERSION:3.10.5<br>
+pyTorch VERSION:13.1.3<br>
+On the cluster we used cluster specifics versions of the software:<br>
+Python VERSION:3.10.5 <br>
+pyTorch VERSION:13.1.3<br>
+CUDNN VERSION:1107)<br>
