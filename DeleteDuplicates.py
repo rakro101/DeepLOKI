@@ -1,9 +1,11 @@
 import os
-import pandas as pd
-from typing import Dict, Any
 import shutil
+from typing import Any, Dict
 
-def create_data_frame_form_folder(folder_path:str)->pd.DataFrame:
+import pandas as pd
+
+
+def create_data_frame_form_folder(folder_path: str) -> pd.DataFrame:
     """
     Create a dataframe with all image names
     Args:
@@ -13,16 +15,16 @@ def create_data_frame_form_folder(folder_path:str)->pd.DataFrame:
 
     """
     df = pd.DataFrame()
-    full_file_name =[]
+    full_file_name = []
     date_l = []
-    time_l =[]
-    ms_l =[]
-    imgnr_l=[]
-    y_coord_l =[]
-    x_coord_l =[]
+    time_l = []
+    ms_l = []
+    imgnr_l = []
+    y_coord_l = []
+    x_coord_l = []
     for root, dirs, files in os.walk(folder_path):
         for name in files:
-            if name.endswith('.png'):
+            if name.endswith(".png"):
                 full_file_name.append(name)
                 name_split = name.split(" ")
                 date_l.append(name_split[0])
@@ -31,25 +33,26 @@ def create_data_frame_form_folder(folder_path:str)->pd.DataFrame:
                 imgnr_l.append(name_split[5])
                 y_coord_l.append(name_split[6])
                 x_coord_l.append(name_split[7].split(".")[0])
-    df["date"] =date_l
-    df["time"]=time_l
-    df["ms"]=ms_l
-    df["imgnr"]=imgnr_l
-    df["y-coord"]=y_coord_l
-    df["x-coord"]=x_coord_l
+    df["date"] = date_l
+    df["time"] = time_l
+    df["ms"] = ms_l
+    df["imgnr"] = imgnr_l
+    df["y-coord"] = y_coord_l
+    df["x-coord"] = x_coord_l
     df["filename"] = full_file_name
     df["path"] = folder_path
-    df["ms"] =df["ms"].astype('int')
-    df['x-coord'] =df['x-coord'].astype('int')
-    df['y-coord'] =df['y-coord'].astype('int')
-    df = df.sort_values(["date","time","ms"]).copy()
-    df["date_time"] =df["date"].astype('str')+df["time"].astype('str')
+    df["ms"] = df["ms"].astype("int")
+    df["x-coord"] = df["x-coord"].astype("int")
+    df["y-coord"] = df["y-coord"].astype("int")
+    df = df.sort_values(["date", "time", "ms"]).copy()
+    df["date_time"] = df["date"].astype("str") + df["time"].astype("str")
     print(df.shape)
     return df
 
 
-
-def are_duplicates(img1: pd.Series, img2: pd.Series, theta: int, alpha: int, beta: int) -> bool:
+def are_duplicates(
+    img1: pd.Series, img2: pd.Series, theta: int, alpha: int, beta: int
+) -> bool:
     """
     Check if two images are duplicates based on specified thresholds.
 
@@ -63,13 +66,18 @@ def are_duplicates(img1: pd.Series, img2: pd.Series, theta: int, alpha: int, bet
     Returns:
         bool: True if images are duplicates, False otherwise.
     """
-    if (img2['ms'] - img1['ms'] < theta and
-            img2['x-coord'] - img1['x-coord'] < alpha and
-            img2['y-coord'] - img1['y-coord'] < beta):
+    if (
+        img2["ms"] - img1["ms"] < theta
+        and img2["x-coord"] - img1["x-coord"] < alpha
+        and img2["y-coord"] - img1["y-coord"] < beta
+    ):
         return True
     return False
 
-def process_duplicate_images(folder_path: str, theta: int, alpha: int, beta: int) -> pd.DataFrame:
+
+def process_duplicate_images(
+    folder_path: str, theta: int, alpha: int, beta: int
+) -> pd.DataFrame:
     """
     Process images in a folder to identify and mark duplicates.
 
@@ -82,30 +90,36 @@ def process_duplicate_images(folder_path: str, theta: int, alpha: int, beta: int
     Returns:
         pd.DataFrame: Processed DataFrame with duplicates marked for keeping or removal.
     """
-    df = create_data_frame_form_folder(folder_path)  # Assuming create_data_frame_form_folder is defined
+    df = create_data_frame_form_folder(
+        folder_path
+    )  # Assuming create_data_frame_form_folder is defined
     df_sort = df.sort_values(by=["date", "time", "ms", "imgnr"])
 
-    grouped = df_sort.groupby(['date', 'time', 'ms'])
+    grouped = df_sort.groupby(["date", "time", "ms"])
 
     duplicates = {}  # Dict to store duplicate filenames
     for _, group in grouped:
-        filenames = list(group['filename'])
+        filenames = list(group["filename"])
         updated_filenames = []
         for filename in filenames:
-            img1 = group[group['filename'] == filename].iloc[0]
+            img1 = group[group["filename"] == filename].iloc[0]
             duplicates[filename] = [filename]
             for _, img2 in group.iterrows():
-                if img1['filename'] != img2['filename'] and are_duplicates(img1, img2, theta, alpha, beta):
-                    duplicates[filename].append(img2['filename'])
+                if img1["filename"] != img2["filename"] and are_duplicates(
+                    img1, img2, theta, alpha, beta
+                ):
+                    duplicates[filename].append(img2["filename"])
                     duplicates[filename].sort()
 
-    df_duplicates = pd.DataFrame({'filename': list(duplicates.keys()), 'duplicates': list(duplicates.values())})
-    df_duplicates['dub'] = df_duplicates['duplicates'].apply(lambda x: len(x) - 1)
+    df_duplicates = pd.DataFrame(
+        {"filename": list(duplicates.keys()), "duplicates": list(duplicates.values())}
+    )
+    df_duplicates["dub"] = df_duplicates["duplicates"].apply(lambda x: len(x) - 1)
 
     keep_map: Dict[str, int] = {}
     for _, row in df_duplicates.iterrows():
-        duplicates_list = row['duplicates']
-        filename = row['filename']
+        duplicates_list = row["duplicates"]
+        filename = row["filename"]
         if len(duplicates_list) == 1:
             keep_map[filename] = 1
         else:
@@ -114,16 +128,14 @@ def process_duplicate_images(folder_path: str, theta: int, alpha: int, beta: int
             else:
                 keep_map[filename] = 1
 
-    merged_df = pd.merge(df_sort, df_duplicates, on='filename', how='left')
-    merged_df['keep'] = merged_df['filename'].map(keep_map).fillna(1)
+    merged_df = pd.merge(df_sort, df_duplicates, on="filename", how="left")
+    merged_df["keep"] = merged_df["filename"].map(keep_map).fillna(1)
 
     return merged_df
 
 
-
-
 if __name__ == "__main__":
-    print('Start Delete Duplicates')
+    print("Start Delete Duplicates")
     folder_path = "data/5_cruises/PS99.2"
     theta, alpha, beta = 60, 400, 400
     result_df = process_duplicate_images(folder_path, theta, alpha, beta)

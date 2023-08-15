@@ -1,22 +1,21 @@
 import copy
-import torch
-from torch import nn
-import torchvision
-import pytorch_lightning as pl
 
-from lightly.data import LightlyDataset
-from lightly.data import DINOCollateFunction
+import pytorch_lightning as pl
+import torch
+import torchvision
+from lightly.data import DINOCollateFunction, LightlyDataset
 from lightly.loss import DINOLoss
 from lightly.models.modules import DINOProjectionHead
+from lightly.models.utils import deactivate_requires_grad, update_momentum
 from lightly.utils.scheduler import cosine_schedule
-from lightly.models.utils import deactivate_requires_grad
-from lightly.models.utils import update_momentum
-from torch.utils.data import DataLoader, Dataset
-from pytorch_lightning import seed_everything
 from loki_dataset import LokiDataset
+from pytorch_lightning import seed_everything
+from torch import nn
+from torch.utils.data import DataLoader, Dataset
 
 torch.manual_seed(42)
 seed = seed_everything(42, workers=True)
+
 
 class DINO(pl.LightningModule):
     def __init__(self):
@@ -78,18 +77,19 @@ dataloader = DataLoader(
     collate_fn=collate_fn,
     shuffle=True,
     drop_last=True,
-    num_workers=8*8,
+    num_workers=8 * 8,
 )
 
 
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     gpus = 8 if torch.cuda.is_available() else 0
     print(torch.cuda.is_available())
-    trainer = pl.Trainer(max_epochs=450, gpus=gpus, strategy='ddp', sync_batchnorm=True, replace_sampler_ddp=True)
+    trainer = pl.Trainer(
+        max_epochs=450,
+        gpus=gpus,
+        strategy="ddp",
+        sync_batchnorm=True,
+        replace_sampler_ddp=True,
+    )
     trainer.fit(model=model, train_dataloaders=dataloader)
-    print('Finish')
-
-
+    print("Finish")

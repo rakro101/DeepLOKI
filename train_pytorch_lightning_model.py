@@ -3,10 +3,10 @@ import time
 
 import pytorch_lightning as pl
 import torch
-import wandb
 from pytorch_lightning import seed_everything
 from pytorch_lightning.loggers import WandbLogger
 
+import wandb
 from dtl_model import DtlModel
 from loki_datasets import LokiDataModule, LokiTrainValDataset
 

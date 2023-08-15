@@ -10,8 +10,7 @@ from pathlib import Path
 import pytorch_lightning as pl
 
 from dtl_model import DtlModel
-from loki_datasets import (LokiDataModule, LokiPredictDataset,
-                           LokiTrainValDataset)
+from loki_datasets import LokiDataModule, LokiPredictDataset, LokiTrainValDataset
 
 
 def folder_name(confi: float, pred: str, treshold: float) -> str:
