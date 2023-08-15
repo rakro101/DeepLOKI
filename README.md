@@ -20,6 +20,9 @@ pip3 install -r requirements_.txt
 
 # Usage
 Image analysis: Run start_app.py
+
 Image Labeling: Run start_app_sort.py
 
 Training: Run train_pytorch_lightning_model.py
+
+PreTraining: Run pretrain/pretrain_with_dino_paper_resnet_dino450.py
