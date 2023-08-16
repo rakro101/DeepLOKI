@@ -19,9 +19,16 @@ pip3 install -r requirements_.txt
 ```
 
 # Usage
+First download the example_haul.zip and the sort.zip.
+Extract them. 
+Copy the example_haul folder to data/.
+Copy the ort folder to data/5_cruises/.
+
 Image analysis: Run start_app.py
 
 Image Labeling: Run start_app_sort.py
+
+# Training - Data needed and computing power
 
 Training: Run train_pytorch_lightning_model.py
 
