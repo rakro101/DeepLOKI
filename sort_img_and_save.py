@@ -73,9 +73,9 @@ def predict_folder(
     results["preds"] = preds
     results["confis"] = confis
     results["folder"] = results.apply(
-        lambda x: folder_name(x["confis"], x.preds, 0.2), axis=1
+        lambda x: folder_name(x["confis"], x.preds, 0.50), axis=1
     )
-    results.to_csv("inference/csv/inference_results.csv", sep=";")
+    results.to_csv(f"inference/csv/inference_results_{arch}.csv", sep=";")
     return results
 
 

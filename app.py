@@ -39,9 +39,10 @@ def main():
     if container2.button("Start Sorting"):
         with st.spinner("(Pre-)Sorting images..."):
             start_time = time.time()
+            print("##########folder_path:", folder_path)
             sort_img_and_save.main(
                 haul_pic_path=folder_path,
-                ending=".bmp",
+                ending=".png",
                 arch=option,
                 target=save_folder_path,
             )
