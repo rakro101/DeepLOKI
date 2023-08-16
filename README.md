@@ -19,10 +19,11 @@ pip3 install -r requirements_.txt
 ```
 
 # Usage
-First download the example_haul.zip and the sort.zip.
+First download the example_haul.zip, model_ckpt.zip and the sort.zip.
 Extract them. 
-Copy the example_haul folder to data/.
-Copy the ort folder to data/5_cruises/.
+Copy the example_haul folder to data/ .
+Copy the sort folder to data/5_cruises/ .
+Copy the content to saved_models/ .
 
 Image analysis: Run start_app.py
 
