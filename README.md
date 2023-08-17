@@ -19,7 +19,8 @@ pip3 install -r requirements_.txt
 ```
 
 # Usage
-First download the example_haul.zip, model_ckpt.zip and the sort.zip (get the content from the editors)
+First download the example_haul.zip, model_ckpt.zip and the sort.zip from
+[Download Here](https://uni-duesseldorf.sciebo.de/s/okWh4728VwnCBGp).
 Extract them. 
 Copy the example_haul folder to data/ .
 Copy the sort folder to data/5_cruises/ .
