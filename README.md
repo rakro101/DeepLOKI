@@ -21,7 +21,10 @@ pip3 install -r requirements_.txt
 # Usage
 First download the example_haul.zip, model_ckpt.zip and the sort.zip from
 [Download Here](https://uni-duesseldorf.sciebo.de/s/okWh4728VwnCBGp).
-Extract them. 
+Extract them.
+Copy the update_allcruises_df_validated_5with_zoomie_20230727.csv to output.
+Copy the update_wo_artefacts_test_dataset_PS992_20230727_nicole.csv to output.
+
 Copy the example_haul folder to data/ .
 Copy the sort folder to data/5_cruises/ .
 Copy the content to saved_models/ .
@@ -45,3 +48,23 @@ On the cluster we used cluster specifics versions of the software:<br>
 Python VERSION:3.10.5 <br>
 pyTorch VERSION:13.1.3<br>
 CUDNN VERSION:1107)<br>
+
+# Authors
+Raphael Kronberg and Ellen Oldenburg
+
+# Support 
+If you **really** like this repository and find it useful, please consider (★) **starring** it, so that it can reach a broader audience of like-minded people. It would be highly appreciated !
+
+# Contributing to DeepLoki
+If you find a bug, create a GitHub issue, or even better, submit a pull request. Similarly, if you have questions, simply post them as GitHub issues. 
+
+# License , citation and acknowledgements
+Please advice the **LICENSE.md** file. For usage of third party libraries and repositories please advise the respective distributed terms. Please cite our paper, when using this code:
+
+```
+@software{kronbergapplications,
+  title={DeepLoki},
+  author={Kronberg, Raphael Marvin and Oldenburg, Ellen}
+  year = {2023},
+}
+```
