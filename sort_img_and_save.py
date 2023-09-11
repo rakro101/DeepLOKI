@@ -45,7 +45,7 @@ def predict_folder(
     Returns:
         dataframe with predictions
     """
-    dm = LokiDataModule(batch_size=256, ending=ending, pred_data_path=haul_pic_path)
+    dm = LokiDataModule(batch_size=1512, ending=ending, pred_data_path=haul_pic_path)
     pred_loader = dm.predict_dataloader()
     lrvd = LokiTrainValDataset()
     num_classes = lrvd.n_classes

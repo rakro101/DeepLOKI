@@ -12,6 +12,8 @@ In addition, we provide a user-friendly graphical interface for the DeepLoki fra
 # Installation Guide
 https://pytorch.org/get-started/locally/
 
+pip install torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1
+
 ```
 brew install python@3.10
 pip3 install torch torchvision torchaudio
