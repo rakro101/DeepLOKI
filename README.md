@@ -19,9 +19,11 @@ pip3 install -r requirements_.txt
 ```
 
 # Usage
-First download the example_haul.zip, model_ckpt.zip and the sort.zip from
+First download the example_haul.zip, model_ckpt.zip, loki.zip. and the sort.zip from
 [Download Here](https://uni-duesseldorf.sciebo.de/s/okWh4728VwnCBGp).
 Extract them.
+loki folder in the DeepLoki_ folder on root level. (here are our models stored)
+
 Copy the update_allcruises_df_validated_5with_zoomie_20230727.csv to output.
 Copy the update_wo_artefacts_test_dataset_PS992_20230727_nicole.csv to output.
 
