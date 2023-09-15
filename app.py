@@ -4,7 +4,7 @@ import streamlit as st
 
 import sort_img_and_save
 from dir_picker import st_directory_picker
-
+import datetime
 
 def main():
     st.set_page_config(layout="wide")
@@ -31,8 +31,10 @@ def main():
             "./inference/sorted",
         ],
     )
+    time_stamp = datetime.datetime.now()
+    sub_dir =f"/{str(time_stamp).replace(' ', '_')}"
+    container2.write(f'Selected save_folder_path: {save_folder_path+sub_dir}')
 
-    container2.write(f"Selected save_folder_path: {save_folder_path}")
 
     option = container2.selectbox("Select a classifier?", ("DTL", "DINO"))
 
@@ -44,7 +46,7 @@ def main():
                 haul_pic_path=folder_path,
                 ending=".png",
                 arch=option,
-                target=save_folder_path,
+                target=save_folder_path+sub_dir,
             )
             elapsed_time = time.time() - start_time
         st.write("\n")

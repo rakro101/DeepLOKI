@@ -11,6 +11,8 @@ import pytorch_lightning as pl
 
 from dtl_model import DtlModel
 from loki_datasets import LokiDataModule, LokiPredictDataset, LokiTrainValDataset
+from typing import Optional
+
 
 
 def folder_name(confi: float, pred: str, treshold: float) -> str:
@@ -34,6 +36,7 @@ def predict_folder(
     haul_pic_path: str = haul_pic_path,
     ending: str = ".bmp",
     arch: str = "dtl_resnet18_classifier",
+    target: Optional[str] = None,
 ) -> pd.DataFrame:
     """
     predict all classes for the images in the folder
@@ -75,7 +78,8 @@ def predict_folder(
     results["folder"] = results.apply(
         lambda x: folder_name(x["confis"], x.preds, 0.50), axis=1
     )
-    results.to_csv(f"inference/csv/inference_results_{arch}.csv", sep=";")
+    if target is None:
+        results.to_csv(f"inference/csv/inference_results_{arch}.csv", sep=";")
     return results
 
 
@@ -126,6 +130,8 @@ def copy_to_folder(results: pd.DataFrame, target="inference/sorted"):
         filename = os.path.basename(source)
         # Use shutil.copyfile to copy the file from the original path to the destination directory
         shutil.copyfile(source, os.path.join(dest, filename))
+
+    results.to_csv(f"{target.replace('sorted', 'csv')}_inference_results.csv", sep=";")
     return None
 
 
@@ -147,7 +153,7 @@ def main(
 
     """
     # get preds
-    results = predict_folder(haul_pic_path=haul_pic_path, ending=ending, arch=arch)
+    results = predict_folder(haul_pic_path=haul_pic_path, ending=ending, arch=arch, target=target)
     # create folders
     create_folders(results, target)
     # copy to folders

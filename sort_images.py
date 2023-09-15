@@ -5,7 +5,7 @@ import shutil
 import pandas as pd
 import streamlit as st
 from PIL import Image
-
+import datetime
 
 class ImageFileLister:
     def __init__(self, root_path):
@@ -156,7 +156,9 @@ def main():
             if st.button("Export CSV"):
                 st.write("Exporting DataFrame as CSV...")
                 image_df, folders__ = image_lister.list_image_files()
-                image_df.to_csv("export_csv/image_dataframe.csv", index=False)
+                time_stamp = datetime.datetime.now()
+                path_to_save =f"manual_label_csv_export/image_dataframe_{str(time_stamp).replace(' ','_')}.csv"
+                image_df.to_csv(path_to_save, index=False)
                 st.success("DataFrame exported successfully!")
 
 
