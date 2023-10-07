@@ -1,4 +1,4 @@
-# DeepLoki_
+# DeepLOKI_
 
 The vertical distribution of zooplankton in the ocean is patchy, and its relation to hydrographical conditions cannot be fully deciphered using traditional net casts due to the large depth intervals sampled. Optical systems that continuously take images during the cast can help bridge this gap. The Lightframe On-sight Keyspecies Investigation (LOKI) concentrates zooplankton with a net that leads to a flow-through chamber with a camera taking images with up to 20 frames sec$^{-1}$. 
 These high-resolution images allow for the determination of zooplankton taxa, often even genera, species, and,  in case of copepods, developmental stages. 
