@@ -59,15 +59,15 @@ Raphael Kronberg and Ellen Oldenburg
 # Support 
 If you **really** like this repository and find it useful, please consider (★) **starring** it, so that it can reach a broader audience of like-minded people. It would be highly appreciated !
 
-# Contributing to DeepLoki
+# Contributing to DeepLOKI
 If you find a bug, create a GitHub issue, or even better, submit a pull request. Similarly, if you have questions, simply post them as GitHub issues. 
 
 # License , citation and acknowledgements
 Please advice the **LICENSE.md** file. For usage of third party libraries and repositories please advise the respective distributed terms. Please cite our paper, when using this code:
 
 ```
-@software{kronbergapplications,
-  title={DeepLoki},
+@software{kronbergapplicationsdeeploki,
+  title={DeepLOKI- A deep learning based approach to identify Zooplankton taxa on high-resolution images from the optical plankton recorder LOKI},
   author={Kronberg, Raphael Marvin and Oldenburg, Ellen}
   year = {2023},
 }
