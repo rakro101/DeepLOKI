@@ -137,15 +137,31 @@ class DtlModel(pl.LightningModule):
         self.save_hyperparameters()
 
         if transfer:
-            max_Children = int(
-                len([child for child in self.feature_extractor.children()])
-            )
-            ct = max_Children
+            param_list = []
             for child in self.feature_extractor.children():
+                for param in child.parameters():
+                    param_list.append(param)
+
+            ct = len(param_list)
+            print(
+                "number of layers - attention this number differs from counting,"
+                " since from linear layer y=xA^T+b , the weigths A and b"
+                " would count as one layer each",
+                ct,
+            )
+            for param in param_list:
                 ct -= 1
                 if ct < self.num_train_layers:
-                    for param in child.parameters():
-                        param.requires_grad = True
+                    param.requires_grad = True
+                    print(
+                        f"Layer: {param.shape} - Requires Grad: {param.requires_grad}"
+                    )
+                else:
+                    # freezing model weights
+                    param.requires_grad = False
+                    print(
+                        f"Layer: {param.shape} - Requires Grad: {param.requires_grad}"
+                    )
 
         self.criterion = nn.CrossEntropyLoss()
         self.accuracy = Accuracy()

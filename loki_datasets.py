@@ -119,7 +119,11 @@ class LokiPredictDataset(Dataset):
         for path, subdirs, files in os.walk(path):
             # print('*' * 12)
             for name in files:
-                if name.endswith(self.ending) or name.endswith(".bmp") or name.endswith(".png"):
+                if (
+                    name.endswith(self.ending)
+                    or name.endswith(".bmp")
+                    or name.endswith(".png")
+                ):
                     path_list.append(path)
                     name_list.append(name)
                     print(os.path.join(path, name))

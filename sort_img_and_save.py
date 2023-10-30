@@ -14,7 +14,6 @@ from loki_datasets import LokiDataModule, LokiPredictDataset, LokiTrainValDatase
 from typing import Optional
 
 
-
 def folder_name(confi: float, pred: str, treshold: float) -> str:
     """
     Return the folder_name, unknow if confidence is below treshold
@@ -129,7 +128,11 @@ def copy_to_folder(results: pd.DataFrame, target="inference/sorted"):
         dest = f"{target}/{row[1][3]}"
         filename = os.path.basename(source)
         # Use shutil.copyfile to copy the file from the original path to the destination directory
-        shutil.copyfile(source, os.path.join(dest, filename))
+        # change always to png images
+        shutil.copyfile(
+            source,
+            os.path.join(dest, filename.replace("." + filename.split(".")[-1], ".png")),
+        )
 
     results.to_csv(f"{target.replace('sorted', 'csv')}_inference_results.csv", sep=";")
     return None
@@ -153,7 +156,9 @@ def main(
 
     """
     # get preds
-    results = predict_folder(haul_pic_path=haul_pic_path, ending=ending, arch=arch, target=target)
+    results = predict_folder(
+        haul_pic_path=haul_pic_path, ending=ending, arch=arch, target=target
+    )
     # create folders
     create_folders(results, target)
     # copy to folders

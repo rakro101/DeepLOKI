@@ -17,7 +17,7 @@ seed = seed_everything(42, workers=True)
 
 
 if __name__ == "__main__":
-    dm = LokiDataModule(batch_size=1536)
+    dm = LokiDataModule(batch_size=256)
     lrvd = LokiTrainValDataset()
     num_classes = lrvd.n_classes
     label_encoder = lrvd.label_encoder
@@ -30,14 +30,14 @@ if __name__ == "__main__":
         num_classes=num_classes,
         arch="resnet_dino450",
         transfer=True,
-        num_train_layers=1,
+        num_train_layers=62,  # attention #resnet18 has here 62 layers, because a (FC) is counted as 2 y=xA^T+b
         wandb_name=wandb.run.name,
         learning_rate=0.0001,
     )
     trainer = pl.Trainer(
         precision=16,
         logger=logger,
-        max_epochs=20,
+        max_epochs=1,
         accelerator="mps",
         devices="auto",
         deterministic=True,
