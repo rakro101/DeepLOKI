@@ -100,7 +100,7 @@ def main():
                 "Select Label:", unique_labels, index=unique_labels.index(default_label)
             )
             with col2:
-                st.title("DeepLoki: Labeltool")
+                st.title("DeepLOKI: Labeltool")
                 # st.caption('This is a string that explains something above.')
                 st.image(
                     image=Image.open(filtered_df["path_to_image"][current_image_index])

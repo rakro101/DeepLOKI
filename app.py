@@ -10,7 +10,7 @@ import datetime
 def main():
     st.set_page_config(layout="wide")
     # Designing the interface
-    st.title("DeepLoki: Automatic classify Loki-Images")
+    st.title("DeepLOKI: Automatic classify LOKI-Images")
     # st.caption('This is a string that explains something above.')
     st.write("\n")
     container1 = st.container()
