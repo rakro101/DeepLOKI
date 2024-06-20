@@ -1,3 +1,5 @@
+[![DOI:10.3389/fmars.2023.1280510](http://img.shields.io/badge/DOI-<10.3389/fmars.2023.1280510>-<#00000>.svg)](https://doi.org/10.3389/fmars.2023.1280510)
+
 # DeepLOKI
 
 Zooplankton plays a crucial role in the ocean’s ecology, serving as a foundational component in
